@@ -1,0 +1,37 @@
+package com.mahanyu.session;
+
+/**
+ * Created by 小马哥 on 2019/8/27.
+ */
+
+import org.apache.ibatis.parsing.TokenHandler;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ */
+public class ParameterMappingTokenHandler implements TokenHandler {
+    private List<ParameterMapping> parameterMappings = new ArrayList<>();
+
+    // context是参数名称
+    @Override
+    public String handleToken(String content) {
+        parameterMappings.add(buildParameterMapping(content));
+        return "?";
+    }
+
+    private ParameterMapping buildParameterMapping(String content) {
+        ParameterMapping parameterMapping = new ParameterMapping(content);
+        return parameterMapping;
+    }
+
+    public List<ParameterMapping> getParameterMappings() {
+        return parameterMappings;
+    }
+
+    public void setParameterMappings(List<ParameterMapping> parameterMappings) {
+        this.parameterMappings = parameterMappings;
+    }
+}
